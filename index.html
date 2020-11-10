@@ -12,7 +12,7 @@
 <body>
     <h1>Forma za manipulaciju sa api-jem</h1>
     <form action="">
-        <div id="odabir tabele">
+        <div id="odabir_tabele">
             <input type="radio" name="odabir_tabele" id="radio_kategorije" value="kategorija">
             <label for="radio_kategorija">Kategorija</label>
 
@@ -70,12 +70,13 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select>
-            <div id="greska">
+            
+        </div>
+        <div id="greska">
 
-            </div>
-            <div id="submit">
-                <button type="button">Posalji zahtev</button>
-            </div>
+        </div>
+        <div id="submit">
+            <button type="button">Posalji zahtev</button>
         </div>
         
     </form>
@@ -84,21 +85,26 @@
 </html>
 
 <script>
+$("button").on("click", posaljiZahtev);
   function posaljiZahtev(){
       if($("input[name=odabir_tabele]:checked").length!=0 && $("input[name=http_zahtev]:checked").length!=0){
         var tabela = $("input[name=odabir_tabele]:checked")[0].id;
-        switch ($("input[name=odabir_tabele]:checked")[0].id){
+        switch ($("input[name=http_zahtev]:checked")[0].id){
             case "get" : 
                 if(tabela=="radio_novosti"){
-                        $.getJSON("localhost:8080/rest-test/rest/api/novosti", function(data){
+                        $.getJSON("http://localhost:8080/rest-test/rest/api/novosti", function(data){
                             document.getElementById("get_odgovor").innerHTML=JSON.stringify(data, null, 2);
-                        })
+                        });
                 }else{
-                    $.getJSON("localhost:8080/rest-test/rest/api/kategorije", function(data){
+                    $.getJSON("http://localhost:8080/rest-test/rest/api/kategorije", function(data){
                             document.getElementById("get_odgovor").innerHTML=JSON.stringify(data, null, 2);
-                        })
+                        });
                 }
+                break;
+            default:
+            console.log("def");
         }
       }
   }
+
 </script>
